@@ -1,4 +1,6 @@
 #[derive(Debug, Serialize, Deserialize)]
+/// A collection of Articles. Can't use a Vec since the total number of
+/// articles needs to be tracked
 pub struct Articles {
     status: String,
     #[serde(rename = "totalResults")]
@@ -7,6 +9,7 @@ pub struct Articles {
 }
 
 impl Articles {
+    /// All the Article sources in the result
     pub fn sources(&self) -> Vec<&ArticleSource> {
         self.articles.iter().map(|a| &a.source).collect()
     }
