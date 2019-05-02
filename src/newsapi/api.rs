@@ -1,6 +1,7 @@
 use super::constants;
 use crate::newsapi::error::NewsApiError;
 use chrono::prelude::*;
+use reqwest::header::USER_AGENT;
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
 
@@ -128,9 +129,17 @@ impl Client {
         }
     }
 
+    // TODO: Add version dynamically at compile time to the UserAgent string see https://docs.rs/built/0.3.0/built/
+    // TODO: Use builder pattern to allow user to override UserAgent value
+    // Should we have a test for the custom user agent? Doesn't seem to make sense to me.
     fn fetch_resource(url: &str, api_key: &str) -> Result<String, NewsApiError> {
         let client = reqwest::Client::new();
-        let mut resp = client.get(url).header("X-Api-Key", api_key).send()?;
+        let user_agent = "rust-newsapi-sdk";
+        let mut resp = client
+            .get(url)
+            .header("X-Api-Key", api_key)
+            .header(USER_AGENT, user_agent)
+            .send()?;
 
         if resp.status().is_success() {
             Ok(resp.text()?)
