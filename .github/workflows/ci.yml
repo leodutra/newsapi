@@ -40,13 +40,19 @@ jobs:
           command: clippy
           args: -- -D warnings
 
+  markdownlint-cli:
+    name: markdownlint-cli
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nosborn/github-action-markdown-cli@v1.1.1
+        with:
+          files: "README.md"
+
   check:
     name: Check
     runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: false
-
       matrix:
         os:
           - ubuntu-latest
@@ -66,10 +72,8 @@ jobs:
   test:
     name: Test Suite
     runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: false
-
       matrix:
         os:
           - ubuntu-latest
