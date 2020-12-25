@@ -3,12 +3,22 @@
 [![Build Status](https://github.com/biomunky/newsapi/workflows/CI/badge.svg)](https://github.com/biomunky/newsapi/actions?query=workflow%3ACI)
 
 - [The News API Rust Library](#the-news-api-rust-library)
+  - [Breaking changes**](#breaking-changes)
+  - [Summary](#summary)
   - [Notes](#notes)
   - [Examples](#examples)
   - [License](#license)
   - [Disclaimer](#disclaimer)
 
 [The News API](https://newsapi.org/) allows you to get breaking news headlines, and search for articles from over 30,000 news sources and blogs.
+
+## Breaking changes**
+
+- Version 0.5.x renames the `Client` struct to `NewsAPIClient`. See [examples](examples/) for demonstrated usage.
+
+- Version 0.4.x introduces async fetch. While synchronous functionality is retained, the relevant functions have been renamed. Please check [examples](examples/) for further details. The core change is `send` has been replaced with `send_async` and `send_sync` for the asynchronous and synchronous variants respectively.
+
+## Summary
 
 All you need is an API key to
 
@@ -39,20 +49,22 @@ Top Headlines and Everything endpoints are wrapped by an Article struct and Sour
 
 ## Examples
 
-As described in [The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html) the project has some simple examples in examples/. These can be run via cargo after you've exported your NEWSAPI_KEY
+As described in [The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html) the project has some simple examples in [examples/](examples/). These can be run via cargo after you've exported your NEWSAPI_KEY
 
 ```shell
 export NEWSAPI_KEY=5h79off128957edb3179y5da1nb36y9e
 ```
 
 To list all examples:
+
 ```shell
 cargo run --example
 ```
 
 to run a specific example
+
 ```shell
-cargo run --example get_sources
+cargo run --example get_sources_async
 ```
 
 ## License

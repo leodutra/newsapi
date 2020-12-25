@@ -1,4 +1,4 @@
-use newsapi::api::Client;
+use newsapi::api::NewsAPIClient;
 use newsapi::constants::Language;
 use newsapi::payload::source::Sources;
 
@@ -9,10 +9,10 @@ async fn main() {
     let key = env::var("NEWSAPI_KEY").unwrap();
 
     // search for English language Sources
-    let sources = Client::new(key)
+    let sources = NewsAPIClient::new(key)
         .language(Language::English)
         .sources()
-        .send::<Sources>()
+        .send_async::<Sources>()
         .await;
 
     println!("{:?}", sources)
